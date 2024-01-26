@@ -1,6 +1,8 @@
 [server]
 maxUploadSize = 25
 
+["secrets"]
+openai_api_key = "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"
 [browser]
 gatherUsageStats = false
 

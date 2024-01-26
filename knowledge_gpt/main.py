@@ -15,7 +15,6 @@ from knowledge_gpt.core.utils import get_llm
 
 # Uncomment to enable debug mode
 # MODEL_LIST.insert(0, "debug")
-
 st.set_page_config(page_title="BlackPeakTechGPT", page_icon="📖", layout="wide")
 st.header("📖Black Peak Technologies")
 
@@ -23,6 +22,7 @@ st.header("📖Black Peak Technologies")
 bootstrap_caching()
 
 chunked_file, model, folder_index = sidebar()
+
 openai_api_key = st.session_state.get("OPENAI_API_KEY")
 llm = get_llm(model=model, openai_api_key=openai_api_key, temperature=0)
 

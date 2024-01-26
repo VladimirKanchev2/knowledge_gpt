@@ -1,13 +1,14 @@
+import os
+
 import streamlit as st
 from knowledge_gpt.components.faq import faq
 from knowledge_gpt.ui import (
-    wrap_doc_in_html,
     is_file_valid,
     is_open_ai_key_valid,
     display_file_read_error,
 )
 from dotenv import load_dotenv
-import os
+
 
 from knowledge_gpt.core.parsing import read_file
 from knowledge_gpt.core.chunking import chunk_file
@@ -24,21 +25,22 @@ def sidebar():
     
     with st.sidebar:
         
-        st.markdown(
-            "## How to use\n"
-            "1. Enter your [OpenAI API key](https://platform.openai.com/account/api-keys) below🔑\n"  # noqa: E501
-            "2. Upload a pdf, docx, or txt file📄\n"
-            "3. Ask a question about the document💬\n"
-        )
-        api_key_input = st.text_input(
-            "OpenAI API Key",
-            type="password",
-            placeholder="Paste your OpenAI API key here (sk-...)",
-            help="You can get your API key from https://platform.openai.com/account/api-keys.",  # noqa: E501
-            value=os.environ.get("OPENAI_API_KEY", None) or st.session_state.get("OPENAI_API_KEY", ""),
-        )
-        
-        st.session_state["OPENAI_API_KEY"] = api_key_input
+        # st.markdown(
+        #    "## How to use\n"
+        #    "1. Enter your [OpenAI API key](https://platform.openai.com/account/api-keys) below🔑\n"  # noqa: E501
+        #    "2. Upload a pdf, docx, or txt file📄\n"
+        #    "3. Ask a question about the document💬\n"
+        # )
+        # api_key_input = st.text_input(
+        #    "OpenAI API Key",
+        #    type="password",
+        #    placeholder="Paste your OpenAI API key here (sk-...)",
+        #    help="You can get your API key from https://platform.openai.com/account/api-keys.",  # noqa: E501
+        #    value=os.environ.get("OPENAI_API_KEY", None) or st.session_state.get("OPENAI_API_KEY", ""),
+        #)
+        #print(Path("/.env"))
+        # st.session_state["OPENAI_API_KEY"] = load_dotenv(Path("/.env"))
+        st.session_state["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
         #openai_api_key = st.session_state.get("OPENAI_API_KEY")
         st.markdown("---")
 
