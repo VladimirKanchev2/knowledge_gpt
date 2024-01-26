@@ -17,7 +17,7 @@ from knowledge_gpt.core.utils import get_llm
 # MODEL_LIST.insert(0, "debug")
 st.set_page_config(page_title="BlackPeakTechGPT", page_icon="📖", layout="wide")
 st.header("📖Black Peak Technologies")
-
+st.session_state["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 # Enable caching for expensive functions
 bootstrap_caching()
 
