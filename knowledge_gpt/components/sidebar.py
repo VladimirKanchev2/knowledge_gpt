@@ -40,8 +40,8 @@ def sidebar():
         #)
         #print(Path("/.env"))
         # st.session_state["OPENAI_API_KEY"] = load_dotenv(Path("/.env"))
-        st.session_state["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-        st.session_state["OPENAI_API_KEY"] = st.secrets["openai_api_key"]
+        #st.session_state["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+        st.session_state["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
         #openai_api_key = st.session_state.get("OPENAI_API_KEY")
         st.markdown("---")
 
