@@ -1,6 +1,6 @@
-import random
-import streamlit as st
+"""Streamlit start file."""
 import time
+import streamlit as st
 
 from knowledge_gpt.components.sidebar import sidebar
 
@@ -11,7 +11,6 @@ from knowledge_gpt.core.caching import bootstrap_caching
 
 from knowledge_gpt.core.qa import query_folder
 from knowledge_gpt.core.utils import get_llm
-
 
 
 # Uncomment to enable debug mode
@@ -33,46 +32,50 @@ if not openai_api_key:
         " https://platform.openai.com/account/api-keys."
     )
 
-return_all_chunks = False
-show_full_doc = False
-full_response = ""
-
+RETURN_ALL_CHUNKS = False
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
 
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "assistant",
-                                "content": "Hi User! I am Innovaway assistant and I am ready to help!"}]
+                                  "content": "Hi Human! " +
+                                             "I am Innovaway smart AI. " +
+                                             "How can I help you today!"}]
 
 for message in st.session_state.messages:
+    if message["role"] == 'assistant':
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+    else:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+if prompt := st.chat_input("Ask me anything?"):
+    if not is_query_valid(prompt):
+        st.stop()
 
-if prompt := st.chat_input("What is up?"):
-    
     st.session_state.messages.append({"role": "user", "content": prompt})
-    
+
     with st.chat_message("user"):
         st.markdown(prompt)
-   
+
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
-        full_response = ""
-       
+        FULL_RESPONSE = ""
+
         result = query_folder(folder_index=folder_index,
-            query=prompt,
-            return_all=return_all_chunks,
-            llm=llm,
-        )
-       
+                              query=prompt,
+                              return_all=RETURN_ALL_CHUNKS,
+                              llm=llm,
+                              )
+
         for chunk in result.answer.split():
-            full_response += chunk + " "
+            FULL_RESPONSE += chunk + " "
             time.sleep(0.05)
             # Add a blinking cursor to simulate typing
-            message_placeholder.markdown(full_response + "▌")
-        #message_placeholder.markdown(full_response)
-        #   message_placeholder.markdown(full_response)
-       
-st.session_state.messages.append({"role": "assistant", "content": full_response})
+            message_placeholder.markdown(FULL_RESPONSE + "▌")
+        # message_placeholder.markdown(FULL_RESPONSE)
+
+    st.session_state.messages.append({"role": "assistant",
+                                      "content": FULL_RESPONSE})

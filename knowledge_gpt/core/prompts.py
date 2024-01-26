@@ -14,7 +14,7 @@ FINAL_ANSWER: I am fine, thank you. How can I help you?
 QUESTION: I have a question / Can you help me?
 =========
 FINAL_ANSWER: Sure, happy to help you. What's your problem?
-QUESTION: Bye! 
+QUESTION: Bye!
 ========
 FINAL_ANSWER: Bye, it was pleasure to help you.
 
